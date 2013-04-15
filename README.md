@@ -46,6 +46,7 @@
 <p>The main drawback is that the SVG file is making 4 http requests. So, while we are displaying the right image, we are not saving bandwidth. I am still trying to figure out how to make raster images background image in SVG so that if the parent is display none, then the asset won't be retrieved. If you're a SVG pro, please contact me at myFirstName@myLastName.org.</p>
 <p>This post has to do with SVG as a foreground image. While we can certainly get SVG to work in the background, using media queries and display: none on the parent, we are able to specify which image we want without downloading images we won't use.</p>
 <p>Another pro for this technique: similar to how we separate content from presentation from behavior: this method enables us to also separate out images -- all the logic is in the SVG image instead of polluting our CSS or HTML.</p>
-<p>&nbsp;</p>
+<h2>With &lt;object&gt; tag: up Next</h2>
+<p>&lt;object&gt; can take care of two draw backs with &lt;img&gt; in the for security reason you can't import images or script into an &lt;img&gt; file. &lt;object&gt; allows both. I am working on that angle now. The object.html file in this repo is my first take on the issue.</p>
 <p>Note: </p>
 <p>* Interestingly, the SVG works best when the raster images are pulled cross domain rather than same origin. You would think, with CSP, it would be the exact opposite.</p>
