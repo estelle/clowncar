@@ -4,21 +4,19 @@
 <title>SVG as Foreground image</title>
 <style>
 p, h1 {text-align: center;}
-object {display: block; width: 50%; margin: auto;}
-img {display: block; width: 100%;}
-head,style:last-of-type {display: block; text-align: center; background-color: #dedede; border-radius: 15px; padding: 20px; font-family: comic sans; font-size: 20px;}
+img {display: block; width: 50%; margin: auto;}
+</style>
+<style>head,style:last-of-type {display: block; text-align: center; background-color: #dedede; border-radius: 15px; padding: 20px; font-family: comic sans; font-size: 20px;}
     head * {display: none;}
     </style>
-    <style contenteditable>
-img {width: 50%; display: block;}
+<style contenteditable>
+object {width: 50%;}
 </style>
-</head>
 <body>
 <h1>Clown Car Technique</h1>
-<object data="object.svg">
-<img src="images/small.png" alt="resizable">
+<object data="bgonly.svg">
+<img src="bgonly.svg" alt="resizable">
 </object>
-<p>Resize window to change clown</p>
-</body>
+<p>Resize window or edit CSS to change clowns</p>
 </body>
 </html>
