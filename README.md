@@ -1,6 +1,6 @@
 <h1>Clown Car Technique for Responsive Images</h1>
 
-<p>We can use media queries within SVG to serve up the right image. The beauty of the &quot;Clown Car&quot; technique is that all the logic remains in the SVG file. I've called it the &quot;Clown Car&quot; technique since we are including (or stuffing) many images (clows) into a single image file (car).</p>
+<p>We can use media queries within SVG to serve up the right image. The beauty of the &quot;Clown Car&quot; technique is that all the logic remains in the SVG file. I've called it the &quot;Clown Car&quot; technique since we are including (or stuffing) many images (clowns) into a single image file (car).</p>
 <p>When you mark up your HTML, you simply add a single call to an SVG file.</p>
 <pre>&lt;img src=&quot;awesomefile.svg&quot; alt=&quot;responsive image&quot;&gt;</pre>
 <p>Now isn't that code simple?</p>
