@@ -5,7 +5,7 @@
 <pre>&lt;img src=&quot;awesomefile.svg&quot; alt=&quot;responsive image&quot;&gt;</pre>
 <p>Now isn't that code simple?</p>
 <p>The magic is that SVG supports both media queries and rasterized images. </p>
-<p>In our SVG file, using the <code>&lt;image&gt;</code> element, will include the all the images that we may need to serve, and include all the media queries.</p>
+<p>In our SVG file, using the <code>&lt;image&gt;</code> element, will include all the images that we may need to serve, and include all the media queries.</p>
 <p>Here is the code for one of the SVG files:</p>
 <pre>&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; width=&quot;300&quot; height=&quot;329&quot;&gt;
   &lt;title&gt;The Clown Car Technique&lt;/title&gt;
