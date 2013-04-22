@@ -1,4 +1,3 @@
-<h1>Clown Car Technique for Responsive Images</h1>
 
 <p>We can use media queries within SVG to serve up the right image. The beauty of the &quot;Clown Car&quot; technique is that all the logic remains in the SVG file. I've called it the &quot;Clown Car&quot; technique since we are including (or stuffing) many images (clowns) into a single image file (car).</p>
 <p>When you mark up your HTML, you simply add a single call to an SVG file.</p>
@@ -58,7 +57,7 @@
  &lt;/style&gt;
 &lt;/svg&gt;</pre>
 <p>This version only downloads the images required, thereby solving the multi-HTTP and waste of bandwidth concerns. However, it seems to trigger more Content Security Policy issues than the previous SVG.</p>
-<p>The SVG file has it's own declared size, but when included in HTML, the media query size is based on the proportions of the  DOM node in the HTML --. it reflects the space provided to it.</p>
+<p>The SVG file has its own declared size, but when included in HTML, the media query size is based on the proportions of the  DOM node in the HTML --. it reflects the space provided to it.</p>
 <p>Open the <a href="http://estelle.github.io/clowncar/local.svg">first SVG file</a> or the <a href="http://estelle.github.io/clowncar/bgonly.svg">second SVG file</a> in your browser and resize your browser window.  As the window grows and shrinks the image the SVG displays changes. The image size appears to stay the same -- because it is the same. In the SVG, all the images have the same dimensions. It's when we include the SVG in a flexible layout that the magic happens. You'll note that the first time you load the second one there may be flickers of white as the browser requests the next required PNG.</p>
 <p>When you include the SVG in your HTML <code>&lt;img&gt;</code> with a flexible width, such as 70% of viewport, as you grow and shrink the container, the image responds to the changes. The &quot;width&quot;  media query in the SVG is based on the element width in which the SVG is contained, not the viewport width.</p>
 <p>I have included the <a href="http://estelle.github.io/clowncar">first SVG</a> and the <a href="http://estelle.github.io/clowncar/bgonly.html">second SVG</a>  so you can see SVG with both foreground and background images. These foreground images work perfectly in Opera. In Chrome and Safari, I need to open the SVG file first, after which the HTML file containing the foreground SVG image works perfectly*. In Firefox, the SVG works. Firefox  supports SVG and supports SVG as background image, but blocks the importing of external raster images due to their content security policy (CSP).</p>
