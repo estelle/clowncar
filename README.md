@@ -70,3 +70,5 @@
 <p>Another pro for this technique: similar to how we separate content from presentation from behavior: this method enables us to also separate out images -- all the logic is in the SVG image instead of polluting our CSS or HTML.</p>
 <p>The main question is: should we attempt this with &lt;object&gt;, or should we get browser vendors to change their content security policy to enable this technique to work as &lt;img> directly?</p>
 
+<h2>Accessibility</h2>
+<p>Object does not support the alt attribute, which make images more accessible. SVG can be made accessible with the help of the TITLE. So, don't forget the title as alt attribute in your SVG</p>
