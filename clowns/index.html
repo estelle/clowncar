@@ -1,0 +1,17 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<title>SVG as foreground image</title>
+<style>
+p, h1 {text-align: center;}
+img {display: block; width: 50%; margin: auto;}
+</style>
+</head>
+<body>
+<h1>Clown Car Technique</h1>
+<img src="clown.svg" alt="resizable">
+<p>Resize window to change Clowns</p>
+<p>This calls clown.svg as an image, not object. Clown SVG uses the SVG image element, not background. Issues are: all images are downloaded, and CSP blocks this in Webkit and Firefox. Opera handles this, but because all iamges are downloaded, this is not a viable solution.</p>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="1316" width="1200">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="329">
 
   <title>The Clown Car Technique</title>
   <defs>
@@ -21,9 +21,9 @@
   </style>
 </defs>
 <g>
-  <image id="small"  height="329" width="300" xlink:href="images/small.png" />
-  <image id="medium" height="658" width="600" xlink:href="images/medium.png" />
-  <image id="big"    height="987" width="900" xlink:href="images/big.png" />
-  <image id="huge"   height="1316" width="1200" xlink:href="images/huge.png" />
+  <image id="small"  height="329" width="300" xlink:href="../images/small.png" />
+  <image id="medium" height="329" width="300" xlink:href="../images/medium.png" />
+  <image id="big"    height="329" width="300" xlink:href="../images/big.png" />
+  <image id="huge"   height="329" width="300" xlink:href="../images/huge.png" />
 </g>
 </svg>

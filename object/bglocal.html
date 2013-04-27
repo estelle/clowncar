@@ -10,11 +10,22 @@ img {display: block; width: 50%; margin: auto;}
     head * {display: none;}
     </style>
 <style contenteditable>
-object {width: 50%;}
+object {
+  width: 50%;
+  border: 1px solid red;
+  display: inline-block;
+  }
+h1 {display: inline;}
+
 </style>
 <body>
 <h1>Clown Car Technique</h1>
-<img src="bglocal.svg" alt="resizable">
+<object data="bglocal.svg">
+<!--[if lte IE 8]>
+<img src="../images/medium.png" alt="Fall back for IE">
+<![endif]-->
+</object>
 <p>Resize window or edit CSS to change clowns</p>
+<p>points to bglocal.svg as an object with fallback for IE8 and earlier.</p>
 </body>
 </html>

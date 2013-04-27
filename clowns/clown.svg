@@ -3,7 +3,7 @@
   <title>The Clown Car Technique</title>
   <defs>
   <style>
-  image {display: none;}
+  g {display: none;}
   #small {display: block}
 
   @media screen and (min-width: 401px) and (max-width: 700px) {
@@ -20,10 +20,16 @@
   }
   </style>
 </defs>
-<g>
-  <image id="small"  height="329" width="300" xlink:href="images/small.png" />
-  <image id="medium" height="329" width="300" xlink:href="images/medium.png" />
-  <image id="big"    height="329" width="300" xlink:href="images/big.png" />
-  <image id="huge"   height="329" width="300" xlink:href="images/huge.png" />
+<g id="small">
+  <image y="0" x="0" class="img" height="329" width="300" xlink:href="../images/small.png" />
+</g>
+<g id="medium">
+  <image y="0" x="0" class="img" height="329" width="300" xlink:href="../images/medium.png" />
+</g>
+<g id="big">
+  <image y="0" x="0" class="img" height="329" width="300" xlink:href="../images/big.png" />
+</g>
+<g id="huge">
+  <image y="0" x="0" class="img" height="329" width="300" xlink:href="../images/huge.png" />
 </g>
 </svg>

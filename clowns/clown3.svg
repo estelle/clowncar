@@ -18,7 +18,7 @@
        class="img"
        height="200"
        width="300"
-       xlink:href="images/small.png" />
+       xlink:href="../images/small.png" />
 </g>
  <g id="med">
   <title>Simple SVG + mediaqueries</title>
@@ -40,7 +40,7 @@
        class="img"
        height="200"
        width="300"
-       xlink:href="images/medium.png" />
+       xlink:href="../images/medium.png" />
 </g>
 
  <g id="bg">
@@ -65,7 +65,7 @@
        class="img"
        height="200"
        width="300"
-       xlink:href="images/big.png" />
+       xlink:href="../images/big.png" />
 </g>
 
  <g id="lg">
@@ -87,7 +87,7 @@
        class="img"
        height="200"
        width="300"
-       xlink:href="images/huge.png" />
+       xlink:href="../images/huge.png" />
 
  </g>
 </svg>
