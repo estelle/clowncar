@@ -16,8 +16,13 @@ object {width: 50%;}
 <h1>Clown Car Technique (1 http request!)</h1>
 
 <p>The following has a data URI.</p>
-<!--<object data="data:image/svg+xml,<svg viewBox='0 0 300 329' preserveAspectRatio='xMidYMid meet' xmlns='http://www.w3.org/2000/svg'><title>Clown Car Technique</title><style>svg{background-size:100% 100%;background-repeat:no-repeat;}@media screen and (max-width:300px){svg{background-image:url(https://raw.github.com/estelle/clowncar/master/images/small.png);}}@media screen and (min-width:301px){svg{background-image:url(https://raw.github.com/estelle/clowncar/master/images/medium.png);}}@media screen and (min-width:601px){svg{background-image:url(https://raw.github.com/estelle/clowncar/master/images/big.png);}}</style></svg>" type="image/svg+xml">
--->
+<object data="data:image/svg+xml,<svg viewBox='0 0 300 329' preserveAspectRatio='xMidYMid meet' xmlns='http://www.w3.org/2000/svg'><title>Clown Car Technique</title><style>svg{background-size:100% 100%;background-repeat:no-repeat;}@media screen and (max-width:300px){svg{background-image:url(https://raw.github.com/estelle/clowncar/master/images/small.png);}}@media screen and (min-width:301px){svg{background-image:url(https://raw.github.com/estelle/clowncar/master/images/medium.png);}}@media screen and (min-width:601px){svg{background-image:url(https://raw.github.com/estelle/clowncar/master/images/big.png);}}</style></svg>" type="image/svg+xml">
+
+<!--[if lte IE 8]>
+<img src="images/medium.png" alt="Fall back for IE">
+<![endif]-->
+</object>
+<p>The following has an escaped  data URI for IE10</p>
 <object
 data="data:image/svg+xml,%3Csvg%20viewBox='0%200%20300%20329'%20preserveAspectRatio='xMidYMid%20meet'%20xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3EClown%20Car%20Technique%3C/title%3E%3Cstyle%3Esvg%7Bbackground-size:10000ackground-repeat:no-repeat;%7D@media%20screen%20and%20(max-width:300px)%7Bsvg%7Bbackground-image:url(https://raw.github.com/estelle/clowncar/master/images/small.png);%7D%7D@media%20screen%20and%20(min-width:301px)%7Bsvg%7Bbackground-image:url(https://raw.github.com/estelle/clowncar/master/images/medium.png);%7D%7D@media%20screen%20and%20(min-width:601px)%7Bsvg%7Bbackground-image:url(https://raw.github.com/estelle/clowncar/master/images/big.png);%7D%7D%3C/style%3E%3C/svg%3E"
 type="image/svg+xml">
