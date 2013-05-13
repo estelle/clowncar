@@ -413,7 +413,19 @@ structure being something similar to </p>
 <p>We'll be better able to
 manage all of our assets. We'll also be able to have responsive foreground
 images without littering our HTML with extra, unused code.</p>
+<h3>Issues (cons?)</h3>
+<p>Above are the pros of the technique. The technique is still nascent, so I haven't figured out what all the issues are. And, when those issues are found, what the solutions are.  A few things that are still a concern include:</p>
 
+<dl>
+  <dt>Page Layout</dt>
+  <dd>According to John Wilkins, Clown Car technique requires full CSS layout before the image starts to load. I have not had a chance to compare loading for regular foreground images versus object versus object with SVG pulling in raster images, so can not comment on the impact of this issue yet.</dd>
+  <dt>Android up to 2.3</dt>
+  <dd>Android up to 2.3 does not support SVG. There are two possible solutions I have found that I have yet to flush out and test. The first is to use: <br>
+<code>    &lt;!--[if !IE]> --><br>
+    &lt;img src="images/small.png" alt="fallback"/><br>
+&lt;!-- &lt;![endif]--></code><br>
+in addition to the IE conditional comment. This will show the small png to all Android phones. Unforunately, this will download small.png for all browsers other than IE before IE9.<br/><br/>The other solution is for users of Modernizr: if you are already testing for everything else, you can include .no-svg in the &lt;html&gt; elements class, then target a webkit prefixed media query with a <code>.no-svg object[type*="svg"]</code> selector that adds dimension and background image to that object. Again, I have not yet tested this out.</dd>
+</dl>
 <h2>Why "Clown Car Technique"</h2>
 
 <p>With naming help from <a href="http://christopherschmitt.com/">Christopher
