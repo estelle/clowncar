@@ -413,7 +413,7 @@ structure being something similar to </p>
 <p>We'll be better able to
 manage all of our assets. We'll also be able to have responsive foreground
 images without littering our HTML with extra, unused code.</p>
-<h3>Issues (cons?)</h3>
+<h3>Issues</h3>
 <p>Above are the pros of the technique. The technique is still nascent, so I haven't figured out what all the issues are. And, when those issues are found, what the solutions are.  A few things that are still a concern include:</p>
 
 <dl>
@@ -425,7 +425,19 @@ images without littering our HTML with extra, unused code.</p>
     &lt;img src="images/small.png" alt="fallback"/><br>
 &lt;!-- &lt;![endif]--></code><br>
 in addition to the IE conditional comment. This will show the small png to all Android phones. Unforunately, this will download small.png for all browsers other than IE before IE9.<br/><br/>The other solution is for users of Modernizr: if you are already testing for everything else, you can include .no-svg in the &lt;html&gt; elements class, then target a webkit prefixed media query with a <code>.no-svg object[type*="svg"]</code> selector that adds dimension and background image to that object. Again, I have not yet tested this out.</dd>
+<dt>Landscape versue Portrait</dt>
+<dd>By relying on <a href="https://developer.mozilla.org/en-US/docs/SVG/Attribute/preserveAspectRatio">preserveAspectRatio</a> within the SVG, the solution as described above will serve always serve 
+images with a single aspect ratio. This attribute was added to ensure that as the width was made responsive and 
+the height was left at <code>auto</code>, the 
+height would automatically change to preserve the aspect ratio. This is not the only way of creating clown car technique SVGs. <br><br>
+SVG media queries resolve to the container in which the SVG finds itself. We can construct our SVG to serve different 
+images based on whether the container is landscape or portrait, and defined the container properties in the HTML's CSS, as briefly described above. 
+I still have to play with different versions of the Clown Car Technique SVG to try various properties as well as media
+queries that deal with orientation change and device pixel ratios.
+</dd>
+     
 </dl>
+<p>The Clown Car Technique is still a work in progress, but the more I play with it, the more viable a solution it seems to be.</p>
 <h2>Why "Clown Car Technique"</h2>
 
 <p>With naming help from <a href="http://christopherschmitt.com/">Christopher
