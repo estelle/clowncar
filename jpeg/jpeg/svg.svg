@@ -1,5 +1,5 @@
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 76" preserveAspectRatio="xMidYMid meet">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" preserveAspectRatio="xMidYMid meet">
   <title>Clown Car Technique</title>
   <style>
 
@@ -10,25 +10,25 @@
 
     @media screen and (max-width: 400px) {
       svg {
-        background-image: url("clown-car-small.jpg");
+        background-image: url("small.jpg");
       }
     }
 
     @media screen and (min-width: 401px) and (max-width: 700px) {
       svg {
-        background-image: url("clown-car-medium.jpg");
+        background-image: url("medium.jpg");
       }
     }
 
     @media screen and (min-width: 701px) and (max-width: 1000px) {
       svg {
-        background-image: url("clown-car-big.jpg");
+        background-image: url("big.jpg");
       }
     }
 
     @media screen and (min-width: 1001px) {
       svg {
-        background-image: url("clown-car-huge.jpg");
+        background-image: url("huge.jpg");
       }
     }
 
