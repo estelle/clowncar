@@ -1,4 +1,3 @@
-
 <h1>Clown Car Technique</h1>
 <h2>Solving for Adaptive Images in Responsive Web Design</h2>
 <p>Adaptive images are the current hot topic in the Adaptive Design
@@ -19,7 +18,7 @@ all devices which look less crisp on high resolution displays. </p>
 <h2>Background Images and Media Queries</h2>
 <p> We've solved adaptive images when it comes to background images. Media queries make it simple to send the right size and resolution images based on the device pixel ratio, viewport size and even the orientation of the screen. </p>
 <p>By using media queries with our background image styles, we can  ensure  only the images we will be using are downloaded from the server. We can limit the downloads to the assets that are most appropriate, saving bandwidth, memory and HTTP requests. </p>
-<p>Unfortunately, there has historically been no solution for foreground images. Until now. The technology has been available for a long time. CCT is just a new technique leveraging existant technology.</p>
+<p>Unfortunately, there has historically been no solution for foreground images. Until now. The technology has been available for a long time. CCT is just a new technique leveraging existent technology.</p>
 
 <h1>Proposed solutions with new technology</h1>
 <h2>New Elements and Attributes</h2>
@@ -62,7 +61,7 @@ its support of media queries to swap in different source files was proposed:</p>
 <p>SVGs support raster images included with the <code>&lt;image&gt;</code> element and with the CSS <code>background-image</code> property. In our responsive SVG, we include all the images that we may need to
 serve and show only the appropriate  image  based on  media queries.</p>
 <h2>Download single raster image</h2>
-<p>My first SVG attempt  used <code>&lt;image&gt;</code>  with @media queries hiding them them with <code>display: none;</code>. </p>
+<p>My first SVG attempt  used <code>&lt;image&gt;</code>  with @media queries hiding them with <code>display: none;</code>. </p>
 <p>While the SVG works perfectly in terms of being responsive, it has several issues. Unfortunately, <code>display: none;</code> on an
   <code>&lt;image&gt;</code> in SVG, similar to <code>&lt;img&gt;</code> in HTML, does not prevent the
   resource from being downloaded. If you <a
@@ -132,7 +131,7 @@ ensures  the aspect ratio defined in <code>viewbox</code> is preserved.</p>
 <p>When you<a href="http://estelle.github.io/clowncar/jpeg/jpeg/svg.svg"> open
 the SVG file with just  background images</a> defined, the raster image
 will take up the entire viewport. While the <code>&lt;image&gt;</code> version may look better
-as a stand alone file  because it is maintaining it's aspect ratio, and the background-image
+as a stand-alone file  because it is maintaining it's aspect ratio, and the background-image
 version is filling up the viewport, when you include the SVG as a separate
 document pulled into your HTML, the aspect ratio is by default preserved.</p>
 
@@ -156,10 +155,10 @@ doesn't automatically download all the assets. Rather, it downloads only the ass
 <h2>Content Security Issues</h2>
 
 <p>In the Opera browser or Windows 9 or 10, open the <a
-href="http://estelle.github.io/clowncar/imagetag/">HTML filng containing a SVG raster image</a> linked to with the 
-<code>&lt;img&gt; tag.</code>Note in the resources panel of your developer tools that only one jpeg or png is being downloaded. Resize your browser. Note that the &lt;img&gt; is responsive. Additional JPEGs or PNGs (we could also have used GIFs or WebP) are only downloaded if needed.</p>
+href="http://estelle.github.io/clowncar/imagetag/">HTML file containing a SVG raster image</a> linked to with the 
+<code>&lt;img&gt; tag.</code> Note in the resources panel of your developer tools that only one jpeg or png is being downloaded. Resize your browser. Note that the &lt;img&gt; is responsive. Additional JPEGs or PNGs (we could also have used GIFs or WebP) are only downloaded if needed.</p>
 <p>If you opened  the <a
-href="http://estelle.github.io/clowncar/imagetag/">HTML filng containing a SVG raster image</a> in Firefox
+href="http://estelle.github.io/clowncar/imagetag/">HTML file containing a SVG raster image</a> in Firefox
   or WebKit, you'll likely saw no image. The SVG works in all modern browsers, but the &lt;img&gt; calling in an SVG pulling in raster images only works in Opera and IE 9+. </p>
 <p>We'll first cover how it works in IE and Opera, then we'll cover the issues with WebKit and Firefox.</p>
 
@@ -178,15 +177,15 @@ parent element in which the SVG is contained -- the &lt;img&gt; in this case -- 
 changes. In the SVG file, the images are defined as being 100% of the height
 and width or the parent, which in the above case, when we opened
 the SVG directly, was the viewport. Now the container is the <code>&lt;img&gt;</code> element.
-Because we included the the <code><strong>viewbox</strong></code> and <code><strong>preserveAspectRatio</strong></code> attributes, whatever  the image size, as long as only one length is defined, the SVG will grow or shrink to fit that length
+Because we included  the <code><strong>viewbox</strong></code> and <code><strong>preserveAspectRatio</strong></code> attributes, whatever  the image size, as long as only one length is defined, the SVG will grow or shrink to fit that length
 maintaining the declared aspect ratio in the SVG.</p>
 <p>These foreground images work perfectly in Opera and Internet Explorer 9+ (the versions found on mobile devices). In Chrome
   and Safari, if you open the SVG file first, caching it, the HTML file
 containing the foreground SVG image may work as well. </p>
 <p> While we previously saw that the browser can indeed render the SVG, if the SVG is included in our document via the <code>&lt;img&gt;</code> tag, this specific type of SVG fails to render. </p>
-<p>Why? To prevent cross domain scripting attacks, most browsers have content security policies in place to keep  SVG from importing media or scripts in case they're malcious in nature.</p>
+<p>Why? To prevent cross-domain scripting attacks, most browsers have content security policies in place to keep  SVG from importing media or scripts in case they're malicious in nature.</p>
 <p>Blocking SVGs from importing scripts and
-  images does make sense: to prevent cross domain scripting attacks you don't
+  images does make sense: to prevent cross-domain scripting attacks you don't
   want a file to be pulling in potentially malicious content. SVG  is supported. In the case of WebKit and
   FireFox, it is just being prevented from pulling
   in external raster images.  I submitted a <a
@@ -369,7 +368,7 @@ images without littering our HTML with extra, unused code, making image manageme
     &lt;![endif]--&gt;<br/>    &lt;!--[if !IE]&gt; --&gt;
       &lt;img src=&quot;images/small.png&quot; alt=&quot;fallback&quot;/&gt;
     &lt;!-- &lt;![endif]--&gt;</pre>
-<p>The above fallback will show the small png to all Android phones. Unforunately, this will download small.png for all browsers other than IE9 and older, even though the image is not shown. While we're trying to solve for old Android, we are downloading the small PNG to most devices unnecessarily.
+<p>The above fallback will show the small png to all Android phones. Unfortunately, this will download small.png for all browsers other than IE9 and older, even though the image is not shown. While we're trying to solve for old Android, we are downloading the small PNG to most devices unnecessarily.
 <h4>JavaScript feature detection</h4>
 <p>The other solution is feature detection with JavaScript. Test for SVG support. Include a <code>.no-svg</code> class on the <code>&lt;html&gt;</code> element if the browser doesn't support SVG. Using a webkit prefixed media query to occlude non-WebKit browsers, target:</p>  <pre>
 .no-svg object[type*=&quot;svg&quot;] {
@@ -386,9 +385,9 @@ images without littering our HTML with extra, unused code, making image manageme
     <li>adding ARIA <code>role=&quot;img&quot;</code> and other ARIA attributes like <code>aria-label</code> and <code>aria-labeled-by</code>.</li>
     <li>including <code>tab-index</code> property to enable the <code>&lt;object&gt;</code> to get focus</li>
   </ul>
-<p> Again, I have yet to test this out, and am currently working on an <a href="http://estelle.github.io/clowncar/accessibiltytest.html">accessibilty testing page</a>.</p><h3>Right-click to save</h3>
+<p> Again, I have yet to test this out, and am currently working on an <a href="http://estelle.github.io/clowncar/accessibiltytest.html">accessibility testing page</a>.</p><h3>Right-click to save</h3>
   <p>In your desktop browser, when you  right click on the image you get a menu enabling you to save the image. On phones, a lingering touch on an image may prompt a save. This does not work with <code>&lt;object&gt;</code> or with background images, which is what our SVG is made of. </p>
-  <p>This &quot;drawback&quot; may be a &quot;feature&quot; for sites warry of people 'stealing' their images. In the brief time that I have contemplated this issue, I have yet to come up with a native ways of resolving this issue. It is likely resolvable with JavaScript.</p>
+  <p>This &quot;drawback&quot; may be a &quot;feature&quot; for sites wary of people 'stealing' their images. In the brief time that I have contemplated this issue, I have yet to come up with a native ways of resolving this issue. It is likely resolvable with JavaScript.</p>
   <p>If  the inability to right click to save is your main argument against this CCT, note while users can right-click on WebP images in browsers that support WebP  (only Chrome and Opera), they can't do much with those images as native applications don't support this new format. This isn't preventing us from moving forward with this bandwidth saving technique.</p>
 <h2>Why "Clown Car Technique"</h2>
 
