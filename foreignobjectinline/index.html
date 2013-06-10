@@ -27,30 +27,41 @@ svg {width: 50%; outline: solid;}
     @media screen and (max-width: 400px) {
       svg {
         background-image: url("../images/small.png");
+        width: 300px;
+        height: 329px;
       }
     }
 
     @media screen and (min-width: 401px) and (max-width: 700px) {
       svg {
         background-image: url("../images/medium.png");
+        width: 600px;
+        height: 658px;
       }
     }
 
     @media screen and (min-width: 701px) and (max-width: 1000px) {
       svg {
         background-image: url("../images/big.png");
+
+        width: 900px;
+        height: 987px;
       }
     }
 
     @media screen and (min-width: 1001px) {
       svg {
         background-image: url("../images/huge.png");
+        width: 1000px;
+        height: 1116px;
       }
     }
 
   </style>
   <foreignObject>
-      <img src="../images/medium.png" href="medium size image"/>
+  <!--[if lte IE 8]>
+      <img src="../images/medium.png" href="medium size image" height="329" width="300"/>
+  <![endif]-->
   </foreignObject>
 </svg>
 <p>Goal: foreignObject fallback for non-SVG supporting browsers</p>
