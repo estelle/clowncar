@@ -7,7 +7,7 @@
 <p>Unfortunately, due to content security policies (not CSP spec, but general security), FF and WebKit to not allow SVG files imported as &lt;img> to call in raster images or scripts. Therefore, we use the almost as simple &lt;object> tag, which as a non-empty element can provide for a child fallback for IE8 and Android 2.3.</p>
 <pre>&lt;object data=&quot;awesomefile.svg&quot; &gt;&lt;/object></pre>
 <p>The magic is that SVG supports both media queries and rasterized images. </p>
-<p>In our SVG file, using the <code>&lt;image&gt;</code> element, will include the all the images that we may need to serve, and include all the media queries.</p>
+<p>In our SVG file, using the <code>&lt;image&gt;</code> element, will include all the images that we may need to serve, and include all the media queries.</p>
 <p>Here is the code for one of the SVG files:</p>
 <pre>&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; width=&quot;300&quot; height=&quot;329&quot;&gt;
   &lt;title&gt;The Clown Car Technique&lt;/title&gt;
