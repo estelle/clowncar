@@ -7,7 +7,7 @@
 <p>Unfortunately, due to content security policies (not CSP spec, but general security), FF and WebKit to not allow SVG files imported as &lt;img> to call in raster images or scripts. Therefore, we use the almost as simple &lt;object> tag, which as a non-empty element can provide for a child fallback for IE8 and Android 2.3.</p>
 <pre>&lt;object data=&quot;awesomefile.svg&quot; &gt;&lt;/object></pre>
 <p>The magic is that SVG supports both media queries and rasterized images. </p>
-<p>In our SVG file, using the <code>&lt;image&gt;</code> element, will include the all the images that we may need to serve, and include all the media queries.</p>
+<p>In our SVG file, using the <code>&lt;image&gt;</code> element will include all the images that we may need to serve, and include all the media queries.</p>
 <p>Here is the code for one of the SVG files:</p>
 <pre>&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; width=&quot;300&quot; height=&quot;329&quot;&gt;
   &lt;title&gt;The Clown Car Technique&lt;/title&gt;
@@ -60,7 +60,7 @@
  &lt;/style&gt;
 &lt;/svg&gt;</pre>
 <p>This version only downloads the images required, thereby solving the multi-HTTP and waste of bandwidth concerns. However, it seems to trigger more Content Security Policy issues than the previous SVG.</p>
-<p>The SVG file has it's own declared size, but when included in HTML, the media query size is based on the proportions of the  DOM node in the HTML --. it reflects the space provided to it.</p>
+<p>The SVG file has its own declared size, but when included in HTML, the media query size is based on the proportions of the  DOM node in the HTML --. it reflects the space provided to it.</p>
 <p>Open the <a href="http://estelle.github.io/clowncar/local.svg">SVG</a> in your browser and resize your browser window.  As the window grows and shrinks the image the SVG displays changes. The image size takes up the full screen because it has a background size of 100%. It's when we include the SVG in the &lt;object> of a flexible layout that the magic happens. You'll note that the first time you load  the SVG there may be flickers of white as the browser requests the next required PNG.</p>
 <p>When you include the SVG in your HTML <code>&lt;img&gt;</code> with a flexible width, such as 70% of viewport, as you grow and shrink the container, the image responds to the changes. The &quot;width&quot;  media query in the SVG is based on the element width in which the SVG is contained, not the viewport width.</p>
 <p> The foreground &lt;img> version works perfectly in Opera. In Chrome and Safari, I need to open the SVG file first, after which the HTML file containing the foreground SVG image works perfectly. In Firefox, the SVG works. Firefox  supports SVG and supports SVG as background image, but blocks the importing of external raster images due to their content security policy (CSP).</p>
