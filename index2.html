@@ -1,0 +1,28 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<title>Clown Car Technique with Single HTTP request!</title>
+<style>
+p, h1 {text-align: center;}
+img {display: block; width: 50%; margin: auto;}
+</style>
+<style>head,style:last-of-type {display: block; text-align: center; background-color: #dedede; border-radius: 15px; padding: 20px; font-family: comic sans; font-size: 20px;}
+    head * {display: none;}
+    </style>
+<style contenteditable>
+object {width: 50%;}
+</style>
+<body>
+<h1>Clown Car Technique (1 http request!)</h1>
+
+<p>The following has a data URI.</p>
+<object
+data="data:image/svg+xml,%3Csvg%20viewBox='0%200%20400%20300'%20preserveAspectRatio='xMidYMid%20meet'%20xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3EClown%20Car%20Technique%3C/title%3E%3Cstyle%3Esvg%7Bbackground-size:100%25%20100%25;background-repeat:no-repeat;%7D@media%20screen%20and%20(max-width:300px)%7Bsvg%7Bbackground-image:url(https://raw.github.com/estelle/clowncar/master/jpeg/jpeg/small.jpg);%7D%7D@media%20screen%20and%20(min-width:301px)%7Bsvg%7Bbackground-image:url(https://raw.github.com/estelle/clowncar/master/jpeg/jpeg/medium.jpg);%7D%7D@media%20screen%20and%20(min-width:601px)%7Bsvg%7Bbackground-image:url(https://raw.github.com/estelle/clowncar/master/jpeg/jpeg/big.jpg);%7D%7D%3C/style%3E%3C/svg%3E" type="image/svg+xml">
+
+<!--[if lte IE 8]>
+<img src="jpeg/jpeg/medium.jpg" alt="Fall back for IE">
+<![endif]-->
+</object>
+<p>The above has an escaped  data URI for IE10</p><p>Image credit: <a href="http://www.flickr.com/photos/dmatos/3176227800/">Dave Matos</a></p>
+</body>
+</html>

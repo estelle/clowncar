@@ -1,0 +1,25 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<title>SVG as Foreground image</title>
+<style>
+p, h1 {text-align: center;}
+img {display: block; width: 50%; margin: auto;}
+</style>
+<style>head,style:last-of-type {display: block; text-align: center; background-color: #dedede; border-radius: 15px; padding: 20px; font-family: comic sans; font-size: 20px;}
+    head * {display: none;}
+    </style>
+<style contenteditable>
+object {width: 50%;}
+</style>
+<body>
+<h1>Clown Car Technique</h1>
+<object data="orientation.svg">
+<!--[if lte IE 8]>
+<img src="../images/medium.png" alt="Fall back for IE">
+<![endif]-->
+</object>
+<p>Resize window or edit CSS to change clowns</p>
+<p>Because the media query is based on the size of the node in which the SVG finds itself, and not the viewport, this SVG will always return the same image.</p>
+</body>
+</html>

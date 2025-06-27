@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="329">
+
+  <title>The Clown Car Technique</title>
+  <defs>
+  <style>
+  image {display: none;}
+  #small {display: block}
+
+  @media screen and (min-width: 401px) and (max-width: 700px) {
+      #medium {display: block}
+      #small {display: none}
+  }
+    @media screen and (min-width: 701px) and (max-width: 1000px) {
+      #big {display: block}
+      #small {display: none}
+  }
+   @media screen and (min-width: 1001px)  {
+    #huge {display: block}
+    #small {display: none;}
+  }
+  </style>
+</defs>
+<g>
+  <image id="small"  height="329" width="300" xlink:href="../images/small.png" />
+  <image id="medium" height="329" width="300" xlink:href="../images/medium.png" />
+  <image id="big"    height="329" width="300" xlink:href="../images/big.png" />
+  <image id="huge"   height="329" width="300" xlink:href="../images/huge.png" />
+</g>
+</svg>

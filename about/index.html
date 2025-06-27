@@ -1,0 +1,456 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+
+     
+
+<p>Adaptive images are the current hot topic in the Adaptive Design
+and Responsive Web Design conversations. Why? Because no one likes any of the
+solutions. New elements and attributes are being discussed as a solution for
+what is, for most of us, a big headache.</p>
+
+<p >We have foreground and background images. We have large displays
+and small displays. We have regular resolution and high resolution displays. We
+have good bandwidth and low bandwidth connections. We have portrait and
+landscape orientations.</p>
+
+<p>Some choose to &quot;waste bandwidth&quot; (and memory) by sending
+high-resolution images to all devices. Others send regular resolution images to
+all devices which look less crisp on high resolution displays. </p>
+
+<p>What we really want to do is send the most appropriate size and resolution
+image based on the browser and device making the request.</p>
+
+<p>We've solved adaptive images when it comes to background images.
+Media queries make it almost simple to send the right size and resolution
+images based on the device pixel ratio, viewport size and even the orientation
+of the screen. By using media queries with our background image styles, we can
+mark up our code to ensure that only the images we will be using are downloaded
+from the server. We can limit the downloads to the assets that are most
+appropriate, saving bandwidth, memory and http requests. Unfortunately, there
+has historically been no solution for foreground images. Until now.</p>
+
+<h1>Proposed solutions with new technology</h1>
+
+<p>With content images, it's a bit more difficult to have the browser
+download and display only the appropriate foreground image. Most believe that
+there is no mechanism for the '<code>&lt;img&gt;'</code> tag to download the right size and resolution image. <a
+href="https://github.com/scottjehl/picturefill">Polyfills</a> have been
+created. <a href="http://sencha.com/products.io">Services</a> have
+been formed.</p>
+
+<p>The '<a
+href="http://www.w3.org/TR/html-picture-element/#the-picture-element">&lt;picture&gt;'</a> element, leveraging the semantics of the HTML5 '&lt;video&gt;' elements with
+its support of media queries to swap in different source files was proposed:</p>
+
+<pre>&lt;<b>picture</b> alt=&quot;responsive image&quot;&gt; 
+     &lt;source src=&quot;large.jpg&quot; media=&quot;(min-width:1600px),
+     (min-resolution: 136dpi) and (min-width:800px)&quot;&gt;
+     &lt;source src=&quot;medium.jpg&quot; media=&quot;(min-width:800px),
+     (min-resolution: 136dpi) and (min-width:400px)&quot;&gt;
+     &lt;source src=&quot;small.jpg&quot;&gt;
+  &lt;!-- fallback --&gt;
+  &lt;img src=&quot;small.jpg&quot; alt=&quot;responsive image&quot;&gt;
+&lt;/picture&gt;</pre>
+
+<p>Another method, using a <a
+href="http://www.w3.org/html/wg/drafts/srcset/w3c-srcset/">srcset attribute</a> on
+the <code>&lt;img&gt;</code> element
+has also been proposed. The above would be written as:</p>
+
+<pre>&lt;img
+    alt=&quot;responsive image&quot;
+    src=&quot;small.jpg&quot; 
+    srcset=&quot;large.jpg 1600w, 
+          large.jpg 800w 1.95x, 
+          medium.jpg 800w, 
+          medium.jpg 400w 1.95x&quot;&gt;</pre>
+
+<h1>Possible Solutions with Existing Tech: SVG</h1>
+
+<p>What many people don't realize is we already have the technology
+to serve responsive images. We've had browser support for responsive images for
+a long, long time! SVG has supported media queries for a long time, and <a
+href="http://caniuse.com/#search=svg">browsers have supported SVG</a> for
+... well, not quite a long time, but still. Most browsers support media queries
+in SVG (<a
+href="http://jeremie.patonnier.net/experiences/svg/media-queries/test.html">test
+your browser</a>). When it comes to browsers that need responsive images, the
+only browser in the mobile space that doesn't support SVG is old versions of
+the Android browser. Android support for SVG began with Android 3.0.</p>
+
+<p>We can leverage browser support for SVG and SVG support for both
+media queries and raster images to create responsive images, using media
+queries within SVG to serve up the right image.</p>
+
+<p>When you mark up your HTML, you simply add a single call to an SVG
+file.</p>
+
+<pre>&lt;img src=&quot;awesomefile.svg&quot; alt=&quot;responsive image&quot;&gt;</pre>
+
+<p>Now isn't that code simple?</p>
+
+<p>In our SVG file, using the <code>&lt;image&gt;</code> element, we include all the images that we may need to
+serve, and include all the media queries.</p>
+
+<p>While using &lt;image&gt; in our SVG, with @media queries used to
+show and hide them, seemed like an obvious solution, display: none; on an
+&lt;image&gt; in SVG, similar to &lt;img&gt; in HTML, does not prevent the
+resource from being downloaded. If you <a
+href="http://estelle.github.io/clowncar/local.svg">open the SVG above in your
+browser</a> that uses &lt;image&gt; in your browser, when this file is loaded,
+all 4 PNGs are retrieved from the server, making 4 additional http requests,
+wasting bandwidth on files that will not be used, and wasting memory.</p>
+
+<h2>Download single raster image</h2>
+
+<p>We know from background image that it is indeed possible to get
+the browser to only download needed images. In CSS we can do this with
+background images. To prevent the SVG from downloading all the included images
+we can use the CSS background images instead of foreground image in our SVG
+file:</p>
+
+<pre>&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 300 329&quot; preserveAspectRatio=&quot;xMidYMid meet&quot;&gt;
+
+&lt;title&gt;Clown Car Technique&lt;/title&gt;
+
+&lt;style&gt;
+  svg {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+  @media screen and (max-width: 400px) {
+    svg {
+      background-image: url(images/small.png&quot;);
+    }
+  }
+
+  @media screen and (min-width: 401px) and (max-width: 700px) {
+    svg {
+       background-image: url(images/medium.png);
+    }
+  }
+
+  @media screen and (min-width: 701px) and (max-width: 1000px) {
+    svg {
+      background-image: url(images/big.png);
+    }
+  }
+
+  @media screen and (min-width: 1001px) {
+    svg {
+      background-image: url(images/huge.png);
+    }
+  }
+&lt;/style&gt;
+&lt;/svg&gt;</pre>
+
+<p>If you're familiar with media queries and CSS, most of the above
+should make complete sense. The clown car technique uses the exact same @media
+queries as you would use elsewhere in your adaptive site.</p>
+
+<p>However, there is structure to our SVG. Unlike the <a href="http://estelle.github.io/clowncar/local.svg">&lt;image&gt;
+version</a>, we don't have any content
+in our SVG. To preserve the aspect ratio of our graphics and ensure that is
+scales uniformly, we include the <b >viewbox</b>
+and <b >preserveAspectRatio</b> attributes.</p>
+
+<p>The value of the viewBox attribute is a list of four
+space or comma separated
+numbers min-x, min-y, width and height. By defining
+the width and the height of our viewbox we define the aspect ratio of the
+image. The values we set for the <a
+href="https://developer.mozilla.org/en-US/docs/SVG/Attribute/preserveAspectRatio">preserveAspectRatio</a> attribute
+ensures that the aspect ratio defined in viewbox is preserved.</p>
+
+<p>When you<a href="http://estelle.github.io/clowncar/bgonly.svg"> open
+the SVG file with just the background images</a> defined, the raster image
+will take up the entire viewport. The &lt;image&gt; version may look better
+right now because it is maintaining it's aspect ratio, and the background-image
+version is filling up the viewport. However, when you include the SVG as a separate
+document pulled into your HTML, the aspect ratio is by default preserved.</p>
+
+<p>This solves the http request issue. <a
+href="http://estelle.github.io/clowncar/object/bgonly.svg">Open the SVG file
+with just the background images</a> and look at the resources tab in your
+developer tools and you'll see the SVG has only made 2 http requests rather
+than 5. If you are on a large monitor, the browser will have downloaded
+bgonly.svg (676 bytes) and huge.png.</p>
+
+<p>Our first issue -- downloading all the different image file sizes,
+even those that aren't needed -- has been resolved. This background-image
+version only downloads the images required, thereby solving the multi-HTTP and
+waste of bandwidth concerns. We still have the SVG file itself which requires
+an http request. We'll solve that issue third.</p>
+
+<h2>Content Security Issues</h2>
+
+<p>In the Opera browser or Windows 9 or 10, open the <a
+href="http://estelle.github.io/clowncar/imagetag/">SVG file</a> pulled in as an
+&lt;img&gt;, then resize your browser window. Note that if you open in Firefox
+or WebKit browser, you'll likely get no image. That is what this section is
+about.</p>
+
+<p>The code is simply: </p>
+
+<pre>&lt;img src=&quot;../object/bgonly.svg&quot; alt=&quot;resizable&quot;&gt;</pre>
+
+<p>When you include the SVG in your HTML <code>&lt;img&gt;</code> with a flexible
+width, such as 70% of viewport, as you grow and shrink the container, the image
+responds to the changes. </p>
+
+<p>The &quot;width&quot; media query in the SVG is based on the
+parent element in which the SVG is contained, not the viewport width. </p>
+
+<p>As the window grows and shrinks the image display by the SVG
+changes. In the SVG file, the images are defined as being 100% of the height
+and width or the parent, which is this case is the above case, when we opened
+the SVG directly, was the viewport. Now the container is the &lt;img&gt;.
+Whatever width the image is, the SVG will grow or shrink to fit that size
+maintaining the declared aspect ratio in the SVG, as long as height is not also
+defined in a way that distorts the aspect ratio. </p>
+
+<p>It's when we include the SVG in a flexible layout that the magic
+happens. You'll note that the first time you resize the image, there may be
+flickers of white as the browser requests the next required PNG -- this is it
+doesn't automatically download all the asset it doesn't need.</p>
+
+<p>These foreground images work perfectly in Opera and newer versions
+of Internet Explorer (the versions you'll find on mobile devices). In Chrome
+and Safari, if you open the SVG file first, caching it, the HTML file
+containing the foreground SVG image works perfectly. </p>
+
+<p>The content security blocking SVG from importing scripts and
+images does make sense: to prevent cross domain scripting attacks you don't
+want a file to be pulling in untrustworthy content. In the case of WebKit and
+FireFox, SVG technology is supported. It is just being prevented from pulling
+in external raster images. Firefox prevents it altogether. Safari and Chrome
+work if the SVG is preloaded. I submitted a <a
+href="https://code.google.com/p/chromium/issues/detail?id=234082">Chrome bug
+report</a> to get the ban on importing raster image in SVG lifted. </p>
+
+<p>In Firefox, the SVG on its own works. Firefox supports SVG and
+supports SVG as background image. However, for security reasons, Firefox blocks
+the importing of external raster images, even if those images are same domain.
+The rationale is that if visitors are allowed to upload images, and the site
+than displays those images and scripts as part of an SVG, that's a security
+risk. I would argue that if the site uses user generated content that is not
+secure, they're already doing it wrong.</p>
+
+<p>For right now the simple line:</p>
+
+<pre>&lt;img src=&quot;awesomefile.svg&quot; alt=&quot;responsive image&quot;&gt; </pre>
+
+<p>is blocked in some browsers, and therefore isn't the full
+solution.</p>
+
+<p>Browsers all support SVG media queries. They all support SVG as
+foreground or content images. They all support SVG as background images. The
+support just isn't all the same because of browser security policies. All
+browsers do support the &lt;object&gt; tag. That should come in handy.</p>
+
+<p>Without making changes to the browser security policy, &lt;img&gt;
+alone won't work. yet. We need to leverage the &lt;object&gt; tag.</p>
+
+
+
+<h3>With &lt;object&gt; tag</h3>
+
+<p>The <b> &lt;object&gt;</b> element allows an
+external resource to be treated as an image. &lt;object&gt; can take care of
+the browser security drawbacks we see with &lt;img&gt; that disallows the
+importing of images or script into an &lt;img&gt; file. &lt;object&gt; allows
+both.</p>
+
+<p>The code isn't that much more complex:</p>
+
+<pre>&lt;object data=&quot;awesomefile.svg&quot; type=&quot;image/svg+xml&quot;&gt;&lt;/object&gt;</pre>
+
+<p>By default, the &lt;object&gt; will be as wide as the parent
+element. However, similar to images, you can declare a width and height with
+the width and height attributes or with the CSS width and height properties.
+Simply declare just one value to ensure that the SVG maintains it's original
+aspect ratio. </p>
+
+<p>Because of the viewbox and preserveAspectRatio declarations in our
+SVG file, the &lt;object&gt; will by default maintain the declared aspect
+ratio. You can overwrite this with HTML or CSS attributes.</p>
+
+<p>As noted earlier, the media queries in the SVG match the SVG's
+container, not the viewport. The matched media queries in the SVG file will
+reflect the parent of the &lt;object&gt; tag rather than the viewport.</p>
+
+<p>If you take a look at an <a
+href="http://estelle.github.io/clowncar/object/bgonly.html">SVG being pulled in
+as the &lt;object&gt; data</a>, you'll see it works in all browsers that
+support SVG.</p>
+
+<p>We have a few drawbacks with this method: </p>
+
+<p>&lt;object&gt; is supported in all browsers, even mobile browsers.
+But this technique only works if the browser supports SVG too. So it doesn't
+work in IE8 and earlier or Android 2.3 and earlier. Also, we have two http
+requests to pull in the correct image: one for the svg file and one for the
+raster image we want to show.</p>
+
+<h3>Fallback f or IE</h3>
+
+<p>What makes the use of &lt;object&gt; more interesting that
+&lt;img&gt; is that &lt;object&gt; is a non-empty element. If you want, you can
+include the &lt;img&gt; tag nested in the &lt;object&gt; for browsers that
+don't support the data type. </p>
+
+<p>For Internet Explorer &lt;=8 we include our medium size raster
+image, since these are browsers that are usually displayed on monitors and
+laptop screen at regular DPI:</p>
+
+<pre>&lt;object data=&quot;awesomefile.svg&quot; type=&quot;image/svg+xml&quot;&gt; 
+  &lt;img src=&quot;medium.png&quot; alt=&quot;responsive image&quot;&gt;
+&lt;/object&gt;</pre>
+
+<p>Unfortunately, content nested within the &lt;object&gt; is
+downloaded even when the object is rendered and the nested content is not
+needed or rendered. The browsers that understand SVG will download the nested
+foreground &lt;img&gt; but won't render it. This adds a download of the image
+targeted for IE for all browsers, whether or not that raster image is the one
+needed and used.</p>
+
+<p>To handle this issue, we can use conditional comments for IE. </p>
+
+<pre>&lt;object data=&quot;awesomefile.svg&quot; type=&quot;image/svg+xml&quot;&gt;
+  &lt;!--[if lte IE 8]&gt;
+  &lt;img src=&quot;medium.png&quot; alt=&quot;Fall back for IE&quot;&gt;
+  &lt;![endif]--&gt;
+&lt;/object&gt;</pre>
+
+<h2>Single HTTP request</h2>
+
+<p>The method we've being using downloads both an SVG file and the
+image file that the SVG calls, creating two http requests instead of one. If
+you are concerned about this additional http requests, you can create a SVG
+data URI instead of calling in an external SVG file.</p>
+
+<pre>&lt;object data=&quot;data:image/svg+xml,&lt;svg viewBox='0 0 300 329' preserveAspectRatio='xMidYMid meet' xmlns='http://www.w3.org/2000/svg'&gt;&lt;title&gt;Clown Car Technique&lt;/title&gt;&lt;style&gt;svg{background-size:100% 100%;background-repeat:no-repeat;}@media screen and (max-width: 400px){svg{background-image:url(images/small.png);}}@media screen and (min-width: 401px) and (max-width:700px){svg{ background-image:url(images/medium.png);}}@media screen and (min-width: 701px) and (max-width:1000px){svg{background-image:url(images/big.png);}}@media screen and (min-width:1001px){svg{background-image:url(images/huge.png);}}&lt;/style&gt;&lt;/svg&gt;&quot; type=&quot;image/svg+xml&quot;&gt;
+  &lt;!--[if lte IE 8]&gt;
+      &lt;img src=&quot;images/medium.png&quot; alt=&quot;Fall back for IE&quot;&gt;
+  &lt;![endif]--&gt;
+&lt;/object&gt;</pre>
+
+<p>The above looks messy, but it's simply <code>data:image/svg+xml,</code> followed by the contents of the SVG file, minified. </p>
+
+<p>The above works in all browsers that support SVG except Internet
+Explorer. While this is frustrating, it's actually because Internet Explorer is
+trying to follow the specifications to the letter. The specifications state
+that the data URI must be escaped. To make all the browsers, including IE9 and
+IE10 support the data URI we escape it:</p>
+
+<pre>&lt;object data=&quot;data:image/svg+xml,%3Csvg%20viewBox='0%200%20300%20329'%20preserveAspectRatio='xMidYMid%20meet'%20xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3EClown%20Car%20Technique%3C/title%3E%3Cstyle%3Esvg%7Bbackground-size:100%25%20100%25;background-repeat:no-repeat;%7D@media%20screen%20and%20(max-width:400px)%7Bsvg%7Bbackground-image:url(images/small.png);%7D%7D@media%20screen%20and%20(min-width:401px)%7Bsvg%7Bbackground-image:url(images/medium.png);%7D%7D@media%20screen%20and%20(min-width:701px)%7Bsvg%7Bbackground-image:url(images/big.png);%7D%7D@media%20screen%20and%20(min-width:1001px)%7Bsvg%7Bbackground-image:url(images/huge.png);%7D%7D%3C/style%3E%3C/svg%3E&quot;
+type=&quot;image/svg+xml&quot;&gt;
+  &lt;!--[if lte IE 8]&gt;
+    &lt;img src=&quot;images/medium.png&quot; alt=&quot;Fall back for IE&quot;&gt;
+  &lt;![endif]--&gt;
+&lt;/object&gt;</pre>
+
+<p>It's ugly markup, but it works! <a
+href="http://estelle.github.io/clowncar/singlerequest.html">http://estelle.github.io/clowncar/singlerequest.html</a></p>
+
+<p>Open the above link and open up the developer tools to check out the http requests. You'll note 2 http
+requests: the html file and the png that the SVG pulls in. The status for the
+SVG is "success" and the size over the network is 0, with the size at under 600
+bytes.</p>
+
+<h2>Landscape versus Portrait</h2>
+
+<p>Generally content images
+are either landscape or portrait: faces are portrait, groups of people,
+products and sunsets are landscape. Some people have a huge issue with the
+Clown Car Technique because the image doesn't change based on orientation
+change. This isn't necessarily true. </p>
+
+<p>The magic of CCT is that
+the image rendered changes based on the size of the container. You can set your
+landscape foreground image to 33% or 240px or whatever, and your portrait
+object width to 25% or 180px or other. The object's size is determined in the
+CSS of your HTML. The raster image served is based on the media queries that
+match the object's size.</p>
+
+<p>The aspect ratio remains
+the same, but you can control which raster image is served by matching the
+media queries in your HTML's CSS with your media queries in your SVG's CSS.</p>
+
+<h2>Other Benefits</h2>
+
+<p>Another asset of the &quot;Clown Car&quot; technique is that all
+the logic remains in the SVG file. Similar to how we separate content from
+presentation from behavior: this method enables us to also separate out images
+-- all the logic is in the SVG image instead of polluting our CSS or HTML.</p>
+
+<p>CCT will enable us to neatly organize our images, separating out our behavior from presentation from content from images. I can picture our file
+structure being something similar to </p>
+
+<pre> SVG
+  Clowns
+    Small.png
+    Medium.png
+    Large.png
+  Cars
+    Small.png
+    Medium.png
+    Large.png
+    Cct.svg
+  Techniques
+    Small.png
+    Medium.png
+    Large.png
+    Cct.svg
+</pre>
+
+<p>We'll be better able to
+manage all of our assets. We'll also be able to have responsive foreground
+images without littering our HTML with extra, unused code.</p>
+<h3>Issues</h3>
+<p>Above are the pros of the technique. The technique is still nascent, so I haven't figured out what all the issues are. And, when those issues are found, what the solutions are.  A few things that are still a concern include:</p>
+
+<dl>
+  <dt>Page Layout</dt>
+  <dd>According to John Wilkins, Clown Car technique requires full CSS layout before the image starts to load. I have not had a chance to compare loading for regular foreground images versus object versus object with SVG pulling in raster images, so can not comment on the impact of this issue yet.</dd>
+  <dt>Android up to 2.3</dt>
+  <dd>Android up to 2.3 does not support SVG. There are two possible solutions I have found that I have yet to flush out and test. The first is to use: <br>
+<code>    &lt;!--[if !IE]> --><br>
+    &lt;img src="images/small.png" alt="fallback"/><br>
+&lt;!-- &lt;![endif]--></code><br>
+in addition to the IE conditional comment. This will show the small png to all Android phones. Unforunately, this will download small.png for all browsers other than IE before IE9.<br/><br/>The other solution is for users of Modernizr: if you are already testing for everything else, you can include .no-svg in the &lt;html&gt; elements class, then target a webkit prefixed media query with a <code>.no-svg object[type*="svg"]</code> selector that adds dimension and background image to that object. Again, I have not yet tested this out.</dd>
+<dt>Landscape versue Portrait</dt>
+<dd>By relying on <a href="https://developer.mozilla.org/en-US/docs/SVG/Attribute/preserveAspectRatio">preserveAspectRatio</a> within the SVG, the solution as described above will serve always serve 
+images with a single aspect ratio. This attribute was added to ensure that as the width was made responsive and 
+the height was left at <code>auto</code>, the 
+height would automatically change to preserve the aspect ratio. This is not the only way of creating clown car technique SVGs. <br><br>
+SVG media queries resolve to the container in which the SVG finds itself. We can construct our SVG to serve different 
+images based on whether the container is landscape or portrait, and defined the container properties in the HTML's CSS, as briefly described above. 
+I still have to play with different versions of the Clown Car Technique SVG to try various properties as well as media
+queries that deal with orientation change and device pixel ratios.
+</dd>
+     
+</dl>
+<p>The Clown Car Technique is still a work in progress, but the more I play with it, the more viable a solution it seems to be.</p>
+<h2>Why "Clown Car Technique"</h2>
+
+<p>With naming help from <a href="http://christopherschmitt.com/">Christopher
+Schmitt</a>, I called it the Clown Car technique since we are including many
+large images (clowns) into a tiny single SVG image file (car).</p>
+
+<p>The main question is: should we be content with &lt;object&gt;, or
+should we get browser vendors to change their content security policy so we can
+use &lt;img&gt;?</p>
+</div>
+</body>
+</html>
+
+     
+</body>
+</html>
